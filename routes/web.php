@@ -21,6 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/products/filter', 'ProductController@filter')->name('products.filter');
 Route::post('/dropzone', 'HomeController@index')->name('file-upload');
 
 Route::middleware('auth')->group(function () {

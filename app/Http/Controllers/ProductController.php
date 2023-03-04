@@ -88,4 +88,25 @@ class ProductController extends Controller
     {
         //
     }
+
+    /**
+     * Search the specific resource from database.
+     */
+    public function filter(Request $request){
+        // Get the filter values from the request
+        $title = $request->input('title');
+        $variant = $request->input('variant');
+        $minPrice = $request->input('price_from');
+        $maxPrice = $request->input('price_to');
+        $date = $request->input('date');
+
+        // Query the products table with the filter values
+        $products = Product::where('title', 'like', '%'.$title.'%')
+            ->where('variant', 'like', '%'.$variant.'%')
+            ->whereBetween('price', [$minPrice, $maxPrice])
+            ->whereDate('created_at', $date)
+            ->get();
+
+        return view('products.index',['products' => $products]);
+    }
 }

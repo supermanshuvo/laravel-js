@@ -53,7 +53,7 @@
                     <tbody>
                     @foreach($products as $product)
                     <tr>
-                        <td>1</td>
+                        <td>{{ $product->id }}</td>
                         <td>T-Shirt <br> Created at : 25-Aug-2020</td>
                         <td>Quality product in low cost</td>
                         <td>
@@ -88,7 +88,8 @@
         <div class="card-footer">
             <div class="row justify-content-between">
                 <div class="col-md-6">
-                    <p>Showing 1 to 10 out of 100</p>
+{{--                    <p>Showing 1 to 10 out of 100</p>--}}
+                    {{ $products->links() }}
                 </div>
                 <div class="col-md-2">
 

@@ -93,20 +93,15 @@ class ProductController extends Controller
      * Search the specific resource from database.
      */
     public function filter(Request $request){
-        // Get the filter values from the request
-        if($request){
-            $title = $request->input('title');
-            $variant = $request->input('variant');
-            $minPrice = $request->input('price_from');
-            $maxPrice = $request->input('price_to');
-            $date = $request->input('date');
-
-            echo $title.' '.$variant.' '.$minPrice.' '.$maxPrice.' '.$date;
-
-            $products = DB::table('products')->paginate(2);
-        }else{
-            $products = DB::table('products')->paginate(2);
+        $products = DB::table('products');
+        if($request->title != null){
+            $products = $products->where('title','Like','%'.$request->title.'%');
         }
-        return view('products.index',['products' => $products]);
+        $products = $products->leftJoin('variants')
+                            ->leftJoin('product_variants')
+                            ->get();
+
+        dd($products);
+//        return view('products.index',['products' => $products]);
     }
 }

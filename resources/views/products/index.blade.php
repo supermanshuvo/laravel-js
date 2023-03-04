@@ -22,12 +22,12 @@
                                     <option value="{{ $color }}">{{ $color }}</option>
                                 @endforeach
                             </optgroup>
-                            <optgroup label="Color">
+                            <optgroup label="Size">
                             @foreach(['XL','L','SM'] as $size)
                                 <option value="{{ $size }}">{{ $size }}</option>
                             @endforeach
                             </optgroup>
-                            <optgroup label="Color">
+                            <optgroup label="Style">
                             @foreach(['v-nick','o-nick'] as $style)
                                 <option value="{{ $style }}">{{ $style }}</option>
                             @endforeach
@@ -68,10 +68,10 @@
 
                     <tbody>
                     @foreach($products as $product)
-                    <tr>
+                    <tr class="font-weight-lighter">
                         <td>{{ $product->id }}</td>
-                        <td>{{ $product->title }} <br> Created at : 25-Aug-2020</td>
-                        <td>Quality product in low cost</td>
+                        <td>{{ $product->title }} <br> Created at : <br> 25-Aug-2020</td>
+                        <td>Quality product in <br> low cost</td>
                         <td>
                             <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
 

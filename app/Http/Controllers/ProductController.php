@@ -14,7 +14,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $products = DB::table('products')->paginate(2);
         return view('products.index',['products' => $products]);
@@ -94,14 +94,19 @@ class ProductController extends Controller
      */
     public function filter(Request $request){
         // Get the filter values from the request
-        $title = $request->input('title');
-        $variant = $request->input('variant');
-        $minPrice = $request->input('price_from');
-        $maxPrice = $request->input('price_to');
-        $date = $request->input('date');
+        if($request){
+            $title = $request->input('title');
+            $variant = $request->input('variant');
+            $minPrice = $request->input('price_from');
+            $maxPrice = $request->input('price_to');
+            $date = $request->input('date');
 
-        echo $title,$variant,$minPrice,$maxPrice,$date;
+            echo $title.' '.$variant.' '.$minPrice.' '.$maxPrice.' '.$date;
 
-        return view('products.index');
+            $products = DB::table('products')->paginate(2);
+        }else{
+            $products = DB::table('products')->paginate(2);
+        }
+        return view('products.index',['products' => $products]);
     }
 }

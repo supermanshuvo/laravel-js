@@ -16,13 +16,7 @@
                 <div class="col-md-2">
                     <select name="variant" id="" class="form-control">
                         <option value="">Select a variant</option>
-{{--                        @foreach($variants as $variant)--}}
-{{--                            <optgroup label="{{$variant}}">--}}
-{{--                                @foreach($product_variants as $product_variant)--}}
-{{--                                    <option value="">{{ $product_variant }}</option>--}}
-{{--                                @endforeach--}}
-{{--                            </optgroup>--}}
-{{--                        @endforeach--}}
+
                             <optgroup label="Color">
                                 @foreach(['Red','Black','Green'] as $color)
                                     <option value="{{ $color }}">{{ $color }}</option>

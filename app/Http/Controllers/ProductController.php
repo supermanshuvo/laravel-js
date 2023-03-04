@@ -97,8 +97,9 @@ class ProductController extends Controller
         if($request->title != null){
             $products = $products->where('title','Like','%'.$request->title.'%');
         }
-        $products = $products->leftJoin('variants')
-                            ->leftJoin('product_variants')
+        $products = $products->select('products.id as id','products.title as title','product_variant_prices.price as price','product_variant_prices.stock as stock')
+                            ->leftJoin('product_variants','product_variants.id','products.id')
+                            ->leftJoin('product_variant_prices','product_variant_prices.id','products.id')
                             ->get();
 
         dd($products);

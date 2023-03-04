@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('Mediusware Question', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => env('base64:wVxTIDVOOrRMtmbzL2fUUQLqtEGiKv/BzRY5gD6jLpk=', 'production'),
 
     /*
     |--------------------------------------------------------------------------

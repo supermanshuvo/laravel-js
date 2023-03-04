@@ -70,8 +70,8 @@
                     @foreach($products as $product)
                     <tr class="font-weight-lighter">
                         <td>{{ $product->id }}</td>
-                        <td>{{ $product->title }} <br> Created at : <br> 25-Aug-2020</td>
-                        <td>Quality product in <br> low cost</td>
+                        <td>{{ $product->title }} <br> Created at : <br> {{$product->created_at}}</td>
+                        <td>{{$product->description}}</td>
                         <td>
                             <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
 

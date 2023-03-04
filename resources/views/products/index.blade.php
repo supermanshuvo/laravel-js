@@ -15,7 +15,34 @@
                 </div>
                 <div class="col-md-2">
                     <select name="variant" id="" class="form-control">
-                        <option>--Select A Variant--</option>
+                        <option value="">Select a variant</option>
+                            <optgroup label="Color">
+                                @foreach(['Red','Black','Green'] as $color)
+                                    <option value="{{ $color }}">{{ $color }}</option>
+                                @endforeach
+                            </optgroup>
+                        <optgroup label="Color">
+                            @foreach(['XL','L','SM'] as $size)
+                                <option value="{{ $size }}">{{ $size }}</option>
+                            @endforeach
+                        </optgroup>
+                        <optgroup label="Color">
+                            @foreach(['v-nick','o-nick'] as $style)
+                                <option value="{{ $style }}">{{ $style }}</option>
+                            @endforeach
+                        </optgroup>
+{{--
+<option lab>Select a variant</option>--}}
+{{--                        <optgroup label="Color">--}}
+{{--                            @foreach(['Red', 'Blue', 'Green'] as $color)--}}
+{{--                                <option value="{{ $color }}">{{ $color }}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </optgroup>--}}
+{{--                        <optgroup label="Style">--}}
+{{--                            @foreach(['Style1', 'Style2', 'Style3'] as $style)--}}
+{{--                                <option value="{{ $style }}">{{ $style }}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </optgroup>--}}
                     </select>
                 </div>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Variant;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,7 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('products.index');
+        $products = DB::select('SELECT * FROM products');
+        return view('products.index',['products' => $products]);
     }
 
     /**

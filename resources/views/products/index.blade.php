@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-md-2">
                     <select name="variant" id="" class="form-control">
-
+                        <option>--Select A Variant--</option>
                     </select>
                 </div>
 

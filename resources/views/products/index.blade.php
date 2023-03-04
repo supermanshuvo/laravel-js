@@ -16,33 +16,28 @@
                 <div class="col-md-2">
                     <select name="variant" id="" class="form-control">
                         <option value="">Select a variant</option>
+{{--                        @foreach($variants as $variant)--}}
+{{--                            <optgroup label="{{$variant}}">--}}
+{{--                                @foreach($product_variants as $product_variant)--}}
+{{--                                    <option value="">{{ $product_variant }}</option>--}}
+{{--                                @endforeach--}}
+{{--                            </optgroup>--}}
+{{--                        @endforeach--}}
                             <optgroup label="Color">
                                 @foreach(['Red','Black','Green'] as $color)
                                     <option value="{{ $color }}">{{ $color }}</option>
                                 @endforeach
                             </optgroup>
-                        <optgroup label="Color">
+                            <optgroup label="Color">
                             @foreach(['XL','L','SM'] as $size)
                                 <option value="{{ $size }}">{{ $size }}</option>
                             @endforeach
-                        </optgroup>
-                        <optgroup label="Color">
+                            </optgroup>
+                            <optgroup label="Color">
                             @foreach(['v-nick','o-nick'] as $style)
                                 <option value="{{ $style }}">{{ $style }}</option>
                             @endforeach
-                        </optgroup>
-{{--
-<option lab>Select a variant</option>--}}
-{{--                        <optgroup label="Color">--}}
-{{--                            @foreach(['Red', 'Blue', 'Green'] as $color)--}}
-{{--                                <option value="{{ $color }}">{{ $color }}</option>--}}
-{{--                            @endforeach--}}
-{{--                        </optgroup>--}}
-{{--                        <optgroup label="Style">--}}
-{{--                            @foreach(['Style1', 'Style2', 'Style3'] as $style)--}}
-{{--                                <option value="{{ $style }}">{{ $style }}</option>--}}
-{{--                            @endforeach--}}
-{{--                        </optgroup>--}}
+                            </optgroup>
                     </select>
                 </div>
 
@@ -81,7 +76,7 @@
                     @foreach($products as $product)
                     <tr>
                         <td>{{ $product->id }}</td>
-                        <td>T-Shirt <br> Created at : 25-Aug-2020</td>
+                        <td>{{ $product->title }} <br> Created at : 25-Aug-2020</td>
                         <td>Quality product in low cost</td>
                         <td>
                             <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
@@ -115,7 +110,7 @@
         <div class="card-footer">
             <div class="row justify-content-between">
                 <div class="col-md-6">
-{{--                    <p>Showing 1 to 10 out of 100</p>--}}
+                    <p>Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} out of {{ $products->total() }}</p>
                     {{ $products->links() }}
                 </div>
                 <div class="col-md-2">

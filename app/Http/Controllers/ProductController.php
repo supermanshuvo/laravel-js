@@ -101,28 +101,7 @@ class ProductController extends Controller
         $date = $request->input('date');
 
         echo $title,$variant,$minPrice,$maxPrice,$date;
-        /*$products = DB::table('products')
-            ->select('products.*', 'product_variants.name as variant_name', 'product_price.price')
-            ->leftJoin('product_variants', 'products.id', '=', 'product_variants.product_id')
-            ->leftJoin('product_price', 'product_variants.id', '=', 'product_price.product_variant_id')
-            ->where(function ($query) use ($title, $variant) {
-                if ($title) {
-                    $query->where('products.title', 'like', '%'.$title.'%');
-                }
 
-                if ($variant) {
-                    $query->where('product_variants.name', 'like', '%'.$variant.'%');
-                }
-            })
-            ->whereDate('created_at', $date)
-            ->when($minPrice, function ($query, $minPrice) {
-                return $query->where('product_price.price', '>=', $minPrice);
-            })
-            ->when($maxPrice, function ($query, $maxPrice) {
-                return $query->where('product_price.price', '<=', $maxPrice);
-            })
-            ->groupBy('products.id')
-            ->get();*/
-//        return view('products.index');
+        return view('products.index');
     }
 }

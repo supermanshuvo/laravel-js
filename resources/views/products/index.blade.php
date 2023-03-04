@@ -58,11 +58,11 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Variant</th>
-                        <th width="150px">Action</th>
+                        <th style="width: 5%">#</th>
+                        <th style="width: 15%">Title</th>
+                        <th style="width: 25%">Description</th>
+                        <th style="width: 40%">Variant</th>
+                        <th style="width: 5%">Action</th>
                     </tr>
                     </thead>
 

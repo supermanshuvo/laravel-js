@@ -100,13 +100,29 @@ class ProductController extends Controller
         $maxPrice = $request->input('price_to');
         $date = $request->input('date');
 
-        // Query the products table with the filter values
-        $products = Product::where('title', 'like', '%'.$title.'%')
-            ->where('variant', 'like', '%'.$variant.'%')
-            ->whereBetween('price', [$minPrice, $maxPrice])
-            ->whereDate('created_at', $date)
-            ->get();
+        echo $title,$variant,$minPrice,$maxPrice,$date;
+        /*$products = DB::table('products')
+            ->select('products.*', 'product_variants.name as variant_name', 'product_price.price')
+            ->leftJoin('product_variants', 'products.id', '=', 'product_variants.product_id')
+            ->leftJoin('product_price', 'product_variants.id', '=', 'product_price.product_variant_id')
+            ->where(function ($query) use ($title, $variant) {
+                if ($title) {
+                    $query->where('products.title', 'like', '%'.$title.'%');
+                }
 
-        return view('products.index',['products' => $products]);
+                if ($variant) {
+                    $query->where('product_variants.name', 'like', '%'.$variant.'%');
+                }
+            })
+            ->whereDate('created_at', $date)
+            ->when($minPrice, function ($query, $minPrice) {
+                return $query->where('product_price.price', '>=', $minPrice);
+            })
+            ->when($maxPrice, function ($query, $maxPrice) {
+                return $query->where('product_price.price', '<=', $maxPrice);
+            })
+            ->groupBy('products.id')
+            ->get();*/
+//        return view('products.index');
     }
 }

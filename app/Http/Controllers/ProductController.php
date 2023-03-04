@@ -16,8 +16,25 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        $colors = DB::table('product_variants')
+                    ->select('variant')
+                    ->distinct()
+                    ->where('variant_id', '=', 1)
+                    ->get();
+        $sizes = DB::table('product_variants')
+            ->select('variant')
+            ->distinct()
+            ->where('variant_id', '=', 2)
+            ->get();
+        $styles = DB::table('product_variants')
+            ->select('variant')
+            ->distinct()
+            ->where('variant_id', '=', 6)
+            ->get();
+
+//        dd($style);
         $products = DB::table('products')->paginate(2);
-        return view('products.index',['products' => $products]);
+        return view('products.index',['products' => $products],compact('colors','styles','sizes'));
     }
 
     /**

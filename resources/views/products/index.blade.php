@@ -18,18 +18,18 @@
                         <option value="">Select a variant</option>
 
                             <optgroup label="Color">
-                                @foreach(['Red','Black','Green'] as $color)
-                                    <option value="{{ $color }}">{{ $color }}</option>
+                                @foreach($colors as $color)
+                                    <option value="{{ $color->variant }}">{{ $color->variant }}</option>
                                 @endforeach
                             </optgroup>
                             <optgroup label="Size">
-                            @foreach(['XL','L','SM'] as $size)
-                                <option value="{{ $size }}">{{ $size }}</option>
+                            @foreach($sizes as $size)
+                                <option value="{{ $size->variant }}">{{ $size->variant }}</option>
                             @endforeach
                             </optgroup>
                             <optgroup label="Style">
-                            @foreach(['v-nick','o-nick'] as $style)
-                                <option value="{{ $style }}">{{ $style }}</option>
+                            @foreach($styles as $style)
+                                <option value="{{ $style->variant }}">{{ $style->variant }}</option>
                             @endforeach
                             </optgroup>
                     </select>

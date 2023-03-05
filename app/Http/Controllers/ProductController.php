@@ -160,12 +160,14 @@ class ProductController extends Controller
             ->paginate(2);
 
         $product_variants = $product_variants->get();
+        $product_variant_prices = $product_variant_prices->get();
 
 
         return view('products.index', [
             'products' => $products,
             'product_variants' => $product_variants,
-            'options' => $options
+            'options' => $options,
+            'product_variant_prices'=> $product_variant_prices
         ]);
     }
 }

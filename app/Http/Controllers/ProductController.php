@@ -129,11 +129,10 @@ class ProductController extends Controller
             $products = $products->where('title','Like','%'.$request->title.'%');
         }
 
-        $products = $products->select('products.id as id','products.title as title','products.description',
-                            'product_variants.variant as variant','product_variants.variant_id as variant_id',
-                            'product_variant_prices.price as price','product_variant_prices.stock as stock')
-                            ->leftJoin('product_variants','product_variants.id','products.id')
-                            ->leftJoin('product_variant_prices','product_variant_prices.id','products.id')
+        $products = $products->join('product_variant_prices', 'products.id', '=', 'product_variant_prices.product_id')
+                            ->join('product_variants', 'product_variant_prices.product_variant_one', '=', 'product_variants.variant_id')
+                            ->select('products.id', 'products.title', 'products.description', 'product_variant_prices.price', 'product_variant_prices.stock', 'product_variants.variant')
+                            ->distinct()
                             ->get();
 
         dd($products);

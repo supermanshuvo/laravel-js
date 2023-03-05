@@ -58,7 +58,7 @@
                     </thead>
 
                     <tbody>
-                    <p style="display: none">{{ $count = 1 }}</p>
+                    <p style="display: none">{{ $count = $products->firstItem() }}</p>
                     @foreach($products as $product)
                         <tr class="font-weight-lighter">
                             <td>{{ $count }}</td>

@@ -64,20 +64,25 @@
                             <td>{{ $product->title }} <br> Created at : <br> {{$product->created_at}}</td>
                             <td>{{$product->description}}</td>
                             <td>
-                                <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
+                                <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant-{{ $product->id }}">
                                     @foreach($product_variants as $variant)
                                         @if($variant->product_id == $product->id)
                                             <dt class="col-sm-3 pb-0">{{ $variant->variant }}</dt>
                                             <dd class="col-sm-9">
                                                 <dl class="row mb-0">
-                                                    <dt class="col-sm-4 pb-0">Price : {{ number_format($variant->price ?? 0,2) }}</dt>
-                                                    <dd class="col-sm-8 pb-0">InStock : {{ number_format($variant->stock ?? 0,2) }}</dd>
+                                                    @foreach($product_variant_prices as $product_variant_price)
+                                                        @if($product_variant_price->product_id == $product->id)
+                                                            <dt class="col-sm-4 pb-0">Price : {{ number_format($product_variant_price->price ?? 0,2) }}</dt>
+                                                            <dd class="col-sm-8 pb-0">InStock : {{ number_format($product_variant_price->stock ?? 0,2) }}</dd>
+                                                            @break
+                                                        @endif
+                                                    @endforeach
                                                 </dl>
                                             </dd>
                                         @endif
                                     @endforeach
                                 </dl>
-                                <button onclick="$('#variant').toggleClass('h-auto')" class="btn btn-sm btn-link">Show more</button>
+                                <button onclick="$('#variant-{{ $product->id }}').toggleClass('h-auto')" class="btn btn-sm btn-link">Show more</button>
                             </td>
                             <td>
                                 <div class="btn-group btn-group-sm">

@@ -53,7 +53,7 @@
                         <th style="width: 15%">Title</th>
                         <th style="width: 25%">Description</th>
                         <th style="width: 40%">Variant</th>
-                        <th style="width: 5%">Action</th>
+                        <th style="width: 10%">Action</th>
                     </tr>
                     </thead>
 
@@ -73,8 +73,8 @@
                                                 <dl class="row mb-0">
                                                     @foreach($product_variant_prices as $product_variant_price)
                                                         @if($product_variant_price->product_id == $product->id)
-                                                            <dt class="col-sm-4 pb-0">Price : {{ number_format($product_variant_price->price ?? 0,2) }}</dt>
-                                                            <dd class="col-sm-8 pb-0">InStock : {{ number_format($product_variant_price->stock ?? 0,2) }}</dd>
+                                                            <dt class="col-sm-6 pb-0">Price : {{ number_format($product_variant_price->price ?? 0,2) }}</dt>
+                                                            <dd class="col-sm-6 pb-0">InStock : {{ number_format($product_variant_price->stock ?? 0,2) }}</dd>
                                                             @break
                                                         @endif
                                                     @endforeach

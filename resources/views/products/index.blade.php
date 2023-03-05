@@ -71,8 +71,10 @@
                                 </dt>
                                 <dd class="col-sm-9">
                                     <dl class="row mb-0">
-                                        <dt class="col-sm-4 pb-0">Price : {{ number_format(200,2) }}</dt>
-                                        <dd class="col-sm-8 pb-0">InStock : {{ number_format(50,2) }}</dd>
+{{--                                        @foreach($product->product_variant_prices as $price)--}}
+                                        <dt class="col-sm-4 pb-0">Price : {{ number_format($product->price ?? 0,2) }}</dt>
+                                        <dd class="col-sm-8 pb-0">InStock : {{ number_format($product->stock ?? 0,2) }}</dd>
+{{--                                        @endforeach--}}
                                     </dl>
                                 </dd>
                             </dl>

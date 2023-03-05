@@ -34,8 +34,15 @@ class ProductController extends Controller
             $options[$title][] = $variant;
         }
 
+        $product_variants = DB::table('product_variants');
+        $variants = DB::table('variants');
         $products = DB::table('products')->paginate(2);
-        return view('products.index',['products' => $products],compact('options'));
+        return view('products.index',[
+            'products' => $products,
+            'options'=> $options,
+            'product_variants' => $product_variants,
+            'variants' => $variants
+        ]);
     }
 
     /**

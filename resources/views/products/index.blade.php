@@ -58,13 +58,14 @@
                     </thead>
 
                     <tbody>
+                    <p style="display: none">{{ $count = 1 }}</p>
                     @foreach($products as $product)
                         <tr class="font-weight-lighter">
-                            <td>{{ $product->id }}</td>
+                            <td>{{ $count }}</td>
                             <td>{{ $product->title }} <br> Created at : <br> {{$product->created_at}}</td>
                             <td>{{$product->description}}</td>
                             <td>
-                                <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant-{{ $product->id }}">
+                                <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant-{{ $count }}">
                                     @foreach($product_variants as $variant)
                                         @if($variant->product_id == $product->id)
                                             <dt class="col-sm-3 pb-0">{{ $variant->variant }}</dt>
@@ -90,6 +91,7 @@
                                 </div>
                             </td>
                         </tr>
+                        <p style="display: none">{{ $count++ }}</p>
                     @endforeach
                     </tbody>
 

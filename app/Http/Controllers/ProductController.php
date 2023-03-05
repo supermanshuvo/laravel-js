@@ -32,7 +32,6 @@ class ProductController extends Controller
             ->where('variant_id', '=', 6)
             ->get();
 
-//        dd($style);
         $products = DB::table('products')->paginate(2);
         return view('products.index',['products' => $products],compact('colors','styles','sizes'));
     }
@@ -110,11 +109,27 @@ class ProductController extends Controller
      * Search the specific resource from database.
      */
     public function filter(Request $request){
+        $colors = DB::table('product_variants')
+            ->select('variant')
+            ->distinct()
+            ->where('variant_id', '=', 1)
+            ->get();
+        $sizes = DB::table('product_variants')
+            ->select('variant')
+            ->distinct()
+            ->where('variant_id', '=', 2)
+            ->get();
+        $styles = DB::table('product_variants')
+            ->select('variant')
+            ->distinct()
+            ->where('variant_id', '=', 6)
+            ->get();
         $products = DB::table('products');
         if($request->title != null){
             $products = $products->where('title','Like','%'.$request->title.'%');
         }
-        $products = $products->select('products.id as id','products.title as title',
+
+        $products = $products->select('products.id as id','products.title as title','products.description',
                             'product_variants.variant as variant','product_variants.variant_id as variant_id',
                             'product_variant_prices.price as price','product_variant_prices.stock as stock')
                             ->leftJoin('product_variants','product_variants.id','products.id')

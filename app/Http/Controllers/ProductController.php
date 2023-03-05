@@ -137,20 +137,27 @@ class ProductController extends Controller
         }
 
         $products = DB::table('products');
-        $products_variant = $request->variant;
-        $products_price_from = $request->price_from;
-        $products_price_to = $request->price_to;
-        $products_date = $request->date;
+        $product_variants = DB::table('product_variants');
+        $product_variant_prices = DB::table('product_variant_prices');
 
         if($request->title != null){
             $products = $products->orWhere('products.title','Like','%'.$request->title.'%');
         }
+        if($request->variant != null){
+            $product_variants = $product_variants->orWhere('product_variants.variant','Like','%'.$request->variant.'%');
 
+        }
+        if ($request->price_from != null && $request->price_to != null){
+            $product_variant_prices = $product_variant_prices->orWhereBetween('product_variant_prices.price', [$request->price_from, $request->price_to]);
+        }
+        if($request->date != null){
+            $products = $products->orWhere('products.created_at','=', $request->date);
+        }
         $products = $products
             ->join('product_variant_prices', 'product_variant_prices.product_id', '=', 'products.id')
             ->join('product_variants', 'product_variants.product_id', '=', 'products.id')
             ->select('products.id', 'products.title', 'products.created_at', 'products.description', 'product_variants.variant', 'product_variant_prices.price', 'product_variant_prices.stock')
-            ->paginate(2);
+            ->paginate(10);
 
         return view('products.index', [
             'products' => $products,

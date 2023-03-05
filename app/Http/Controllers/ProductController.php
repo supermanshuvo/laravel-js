@@ -157,10 +157,14 @@ class ProductController extends Controller
             ->join('product_variant_prices', 'product_variant_prices.product_id', '=', 'products.id')
             ->join('product_variants', 'product_variants.product_id', '=', 'products.id')
             ->select('products.id', 'products.title', 'products.created_at', 'products.description', 'product_variants.variant', 'product_variant_prices.price', 'product_variant_prices.stock')
-            ->paginate(10);
+            ->paginate(2);
+
+        $product_variants = $product_variants->get();
+
 
         return view('products.index', [
             'products' => $products,
+            'product_variants' => $product_variants,
             'options' => $options
         ]);
     }

@@ -125,18 +125,28 @@ class ProductController extends Controller
             }
             $options[$title][] = $variant;
         }
+        $title = $request->title;
+        $variant = $request->variant;
+        $price_from = $request->price_from;
+        $price_to = $request->price_to;
+        $date = $request->date;
 
         $products = DB::table('products')
             ->join('product_variant_prices', 'product_variant_prices.product_id', '=', 'products.id')
             ->join('product_variants', 'product_variants.product_id', '=', 'products.id')
             ->select('products.id', 'products.title', 'products.description', 'product_variants.variant', 'product_variant_prices.price', 'product_variant_prices.stock')
-            ->where('products.title', '=', 't-shirt')
-            ->orWhere('product_variants.variant', '=', 'red')
-            ->orWhereBetween('product_variant_prices.price', [10, 100])
-            ->whereDate('products.created_at', '=', '2022-03-20')
+            ->when($title, function($query, $title) {
+                return $query->where('products.title', 'like', '%'.$title.'%');
+            })
+            ->orWhere('product_variants.variant', 'like', '%'.$variant.'%')
+            ->orWhereBetween('product_variant_prices.price', [$price_to, $price_from])
+            ->whereDate('products.created_at', '=', $date)
             ->get()
             ->groupBy('id')
-            ->map(function ($item) {
+            ->map(function ($item) use ($title) {
+                if($title && $item[0]->title !== $title){
+                    return null;
+                }
                 return [
                     'title' => $item[0]->title,
                     'description' => $item[0]->description,
@@ -145,6 +155,8 @@ class ProductController extends Controller
                     'stock' => $item->pluck('stock')->toArray(),
                 ];
             })
+            ->filter()
+            ->values()
             ->toArray();
         dd($products);
 //        return view('products.index',['products' => $products]);

@@ -67,10 +67,6 @@
                             <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
 
                                 <dt class="col-sm-3 pb-0">
-{{--                                    @foreach($variants as $variant)--}}
-{{--                                        @foreach($product_variants where product_variants.variant_id = )--}}
-{{--                                        @endforeach--}}
-{{--                                    @endforeach--}}
                                     SM/ Red/ V-Nick
                                 </dt>
                                 <dd class="col-sm-9">

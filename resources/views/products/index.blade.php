@@ -16,22 +16,13 @@
                 <div class="col-md-2">
                     <select name="variant" id="" class="form-control">
                         <option value="">Select a variant</option>
-
-                            <optgroup label="Color">
-                                @foreach($colors as $color)
-                                    <option value="{{ $color->variant }}">{{ $color->variant }}</option>
+                        @foreach ($options as $title => $variants)
+                            <optgroup label="{{ $title }}">
+                                @foreach ($variants as $variant)
+                                    <option value="{{ $variant }}">{{ $variant }}</option>
                                 @endforeach
                             </optgroup>
-                            <optgroup label="Size">
-                            @foreach($sizes as $size)
-                                <option value="{{ $size->variant }}">{{ $size->variant }}</option>
-                            @endforeach
-                            </optgroup>
-                            <optgroup label="Style">
-                            @foreach($styles as $style)
-                                <option value="{{ $style->variant }}">{{ $style->variant }}</option>
-                            @endforeach
-                            </optgroup>
+                        @endforeach
                     </select>
                 </div>
 

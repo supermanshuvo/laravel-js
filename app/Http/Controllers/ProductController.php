@@ -125,39 +125,46 @@ class ProductController extends Controller
             }
             $options[$title][] = $variant;
         }
-        $title = $request->title;
-        $variant = $request->variant;
-        $price_from = $request->price_from;
-        $price_to = $request->price_to;
-        $date = $request->date;
-
-        $products = DB::table('products')
-            ->join('product_variant_prices', 'product_variant_prices.product_id', '=', 'products.id')
-            ->join('product_variants', 'product_variants.product_id', '=', 'products.id')
-            ->select('products.id', 'products.title', 'products.description', 'product_variants.variant', 'product_variant_prices.price', 'product_variant_prices.stock')
-            ->when($title, function($query, $title) {
-                return $query->where('products.title', 'like', '%'.$title.'%');
-            })
-            ->orWhere('product_variants.variant', 'like', '%'.$variant.'%')
-            ->orWhereBetween('product_variant_prices.price', [$price_to, $price_from])
-            ->whereDate('products.created_at', '=', $date)
-            ->get()
-            ->groupBy('id')
-            ->map(function ($item) use ($title) {
-                if($title && $item[0]->title !== $title){
-                    return null;
-                }
-                return [
-                    'title' => $item[0]->title,
-                    'description' => $item[0]->description,
-                    'variants' => $item->pluck('variant')->toArray(),
-                    'prices' => $item->pluck('price')->toArray(),
-                    'stock' => $item->pluck('stock')->toArray(),
-                ];
-            })
-            ->filter()
-            ->values()
-            ->toArray();
+        $products = DB::table('products');
+        $products_variant = $request->variant;
+        $products_price_from = $request->price_from;
+        $products_price_to = $request->price_to;
+        $products_date = $request->date;
+        if($request->title != null){
+            $products = $products->orWhere('products.title','Like','%'.$request->title);
+        }
+        $products = $products
+                    ->join('product_variant_prices', 'product_variant_prices.product_id', '=', 'products.id')
+                    ->join('product_variants', 'product_variants.product_id', '=', 'products.id')
+                    ->select('products.id', 'products.title', 'products.description', 'product_variants.variant', 'product_variant_prices.price', 'product_variant_prices.stock')
+                    ->get();
+//        $products = DB::table('products')
+//            ->join('product_variant_prices', 'product_variant_prices.product_id', '=', 'products.id')
+//            ->join('product_variants', 'product_variants.product_id', '=', 'products.id')
+//            ->select('products.id', 'products.title', 'products.description', 'product_variants.variant', 'product_variant_prices.price', 'product_variant_prices.stock')
+////            ->when($title, function($query, $title) {
+////                return $query->where('products.title', 'like', '%'.$title.'%');
+////            })
+////            ->orWhere('product_variants.variant', 'like', '%'.$variant.'%')
+////            ->orWhereBetween('product_variant_prices.price', [$price_to, $price_from])
+////            ->whereDate('products.created_at', '=', $date)
+//            ->get()
+//            ->groupBy('id')
+//            ->map(function ($item) use ($title) {
+//                if($title && $item[0]->title !== $title){
+//                    return null;
+//                }
+//                return [
+//                    'title' => $item[0]->title,
+//                    'description' => $item[0]->description,
+//                    'variants' => $item->pluck('variant')->toArray(),
+//                    'prices' => $item->pluck('price')->toArray(),
+//                    'stock' => $item->pluck('stock')->toArray(),
+//                ];
+//            })
+//            ->filter()
+//            ->values()
+//            ->toArray();
         dd($products);
 //        return view('products.index',['products' => $products]);
     }

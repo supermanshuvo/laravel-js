@@ -16,29 +16,29 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-//        $colors = DB::table('product_variants')
-//                    ->select('variant')
-//                    ->distinct()
-//                    ->where('variant_id', '=', 1)
-//                    ->get();
-//        $sizes = DB::table('product_variants')
-//            ->select('variant')
+//        $option = DB::table('variants')
+//            ->join('product_variants', 'product_variants.variant_id', '=', 'variants.id')
+//            ->select('variants.title', 'product_variants.variant')
 //            ->distinct()
-//            ->where('variant_id', '=', 2)
 //            ->get();
-//        $styles = DB::table('product_variants')
-//            ->select('variant')
-//            ->distinct()
-//            ->where('variant_id', '=', 6)
-//            ->get();
-        $option = DB::table('variants')
-            ->join('product_variants', 'product_variants.variant_id', '=', 'variants.id')
-            ->select('variants.title', 'product_variants.variant')
+        $colors = DB::table('product_variants')
+                    ->select('variant')
+                    ->distinct()
+                    ->where('variant_id', '=', 1)
+                    ->get();
+        $sizes = DB::table('product_variants')
+            ->select('variant')
             ->distinct()
+            ->where('variant_id', '=', 2)
+            ->get();
+        $styles = DB::table('product_variants')
+            ->select('variant')
+            ->distinct()
+            ->where('variant_id', '=', 6)
             ->get();
 
         $products = DB::table('products')->paginate(2);
-        return view('products.index',['products' => $products],compact('option'));
+        return view('products.index',['products' => $products],compact('colors','styles','sizes'));
     }
 
     /**
@@ -114,6 +114,21 @@ class ProductController extends Controller
      * Search the specific resource from database.
      */
     public function filter(Request $request){
+        $colors = DB::table('product_variants')
+            ->select('variant')
+            ->distinct()
+            ->where('variant_id', '=', 1)
+            ->get();
+        $sizes = DB::table('product_variants')
+            ->select('variant')
+            ->distinct()
+            ->where('variant_id', '=', 2)
+            ->get();
+        $styles = DB::table('product_variants')
+            ->select('variant')
+            ->distinct()
+            ->where('variant_id', '=', 6)
+            ->get();
          $option = DB::table('variants')
             ->join('product_variants', 'product_variants.variant_id', '=', 'variants.id')
             ->select('variants.title', 'product_variants.variant')

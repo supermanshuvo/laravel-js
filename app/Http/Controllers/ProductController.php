@@ -126,7 +126,27 @@ class ProductController extends Controller
             $options[$title][] = $variant;
         }
 
-        dd();
+        $products = DB::table('products')
+            ->join('product_variant_prices', 'product_variant_prices.product_id', '=', 'products.id')
+            ->join('product_variants', 'product_variants.product_id', '=', 'products.id')
+            ->select('products.id', 'products.title', 'products.description', 'product_variants.variant', 'product_variant_prices.price', 'product_variant_prices.stock')
+            ->where('products.title', '=', 't-shirt')
+            ->orWhere('product_variants.variant', '=', 'red')
+            ->orWhereBetween('product_variant_prices.price', [10, 100])
+            ->whereDate('products.created_at', '=', '2022-03-20')
+            ->get()
+            ->groupBy('id')
+            ->map(function ($item) {
+                return [
+                    'title' => $item[0]->title,
+                    'description' => $item[0]->description,
+                    'variants' => $item->pluck('variant')->toArray(),
+                    'prices' => $item->pluck('price')->toArray(),
+                    'stock' => $item->pluck('stock')->toArray(),
+                ];
+            })
+            ->toArray();
+        dd($products);
 //        return view('products.index',['products' => $products]);
     }
 }

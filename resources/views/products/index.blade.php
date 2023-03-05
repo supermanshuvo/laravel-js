@@ -59,31 +59,32 @@
 
                     <tbody>
                     @foreach($products as $product)
-                    <tr class="font-weight-lighter">
-                        <td>{{ $product->id }}</td>
-                        <td>{{ $product->title }} <br> Created at : <br> {{$product->created_at}}</td>
-                        <td>{{$product->description}}</td>
-                        <td>
-                            <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
-
-                                <dt class="col-sm-3 pb-0">
-                                    SM/ Red/ V-Nick
-                                </dt>
-                                <dd class="col-sm-9">
-                                    <dl class="row mb-0">
-                                        <dt class="col-sm-4 pb-0">Price : {{ number_format($product->price ?? 0,2) }}</dt>
-                                        <dd class="col-sm-8 pb-0">InStock : {{ number_format($product->stock ?? 0,2) }}</dd>
-                                    </dl>
-                                </dd>
-                            </dl>
-                            <button onclick="$('#variant').toggleClass('h-auto')" class="btn btn-sm btn-link">Show more</button>
-                        </td>
-                        <td>
-                            <div class="btn-group btn-group-sm">
-                                <a href="{{ route('product.edit', 1) }}" class="btn btn-success">Edit</a>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr class="font-weight-lighter">
+                            <td>{{ $product->id }}</td>
+                            <td>{{ $product->title }} <br> Created at : <br> {{$product->created_at}}</td>
+                            <td>{{$product->description}}</td>
+                            <td>
+                                <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
+                                    @foreach($product_variants as $variant)
+                                        @if($variant->product_id == $product->id)
+                                            <dt class="col-sm-3 pb-0">{{ $variant->variant }}</dt>
+                                            <dd class="col-sm-9">
+                                                <dl class="row mb-0">
+                                                    <dt class="col-sm-4 pb-0">Price : {{ number_format($variant->price ?? 0,2) }}</dt>
+                                                    <dd class="col-sm-8 pb-0">InStock : {{ number_format($variant->stock ?? 0,2) }}</dd>
+                                                </dl>
+                                            </dd>
+                                        @endif
+                                    @endforeach
+                                </dl>
+                                <button onclick="$('#variant').toggleClass('h-auto')" class="btn btn-sm btn-link">Show more</button>
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <a href="{{ route('product.edit', $product->id) }}" class="btn btn-success">Edit</a>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                     </tbody>
 

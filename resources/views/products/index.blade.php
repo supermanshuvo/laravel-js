@@ -16,9 +16,9 @@
                 <div class="col-md-2">
                     <select name="variant" id="" class="form-control">
                         <option value="">Select a variant</option>
-                        @foreach ($options as $title => $variants)
+                        @foreach ($options as $title => $options_variants)
                             <optgroup label="{{ $title }}">
-                                @foreach ($variants as $variant)
+                                @foreach ($options_variants as $variant)
                                     <option value="{{ $variant }}">{{ $variant }}</option>
                                 @endforeach
                             </optgroup>
@@ -67,6 +67,10 @@
                             <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
 
                                 <dt class="col-sm-3 pb-0">
+{{--                                    @foreach($variants as $variant)--}}
+{{--                                        @foreach($product_variants where product_variants.variant_id = )--}}
+{{--                                        @endforeach--}}
+{{--                                    @endforeach--}}
                                     SM/ Red/ V-Nick
                                 </dt>
                                 <dd class="col-sm-9">

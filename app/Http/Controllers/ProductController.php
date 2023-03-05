@@ -34,14 +34,17 @@ class ProductController extends Controller
             $options[$title][] = $variant;
         }
 
-        $product_variants = DB::table('product_variants');
-        $variants = DB::table('variants');
+
+        $product_variants = DB::table('product_variants')->get();
+        $product_variant_prices = DB::table('product_variant_prices')->get();
+        $variants = DB::table('variants')->get();
         $products = DB::table('products')->paginate(2);
-        return view('products.index',[
+        return view('products.index', [
             'products' => $products,
-            'options'=> $options,
+            'options' => $options,
             'product_variants' => $product_variants,
-            'variants' => $variants
+            'variants' => $variants,
+            'product_variant_prices'=> $product_variant_prices
         ]);
     }
 
@@ -140,7 +143,7 @@ class ProductController extends Controller
         $products_date = $request->date;
 
         if($request->title != null){
-            $products = $products->orWhere('products.title','Like','%'.$request->title);
+            $products = $products->orWhere('products.title','Like','%'.$request->title.'%');
         }
 
         $products = $products
